@@ -43,7 +43,7 @@ public class DBMgr {
 	private String ip = "127.0.0.1"; //
 	private Vector connections = new Vector(10);
 	private String _driver = "org.gjt.mm.mysql.Driver",
-    _url = "jdbc:mysql://"+ip+":3306/comma?useUnicode=true&characterEncoding=EUC_KR",
+    _url = "jdbc:mysql://"+ip+":3306/comma?useUnicode=true&characterEncoding=UTF-8",
     _user = "root",
     _password = "1234";
 

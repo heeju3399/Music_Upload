@@ -199,6 +199,43 @@ public class BoardMgr {
 		return vlist;
 	}
 
+	public Vector<BoardBean> getBoardList() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<BoardBean> vlist = new Vector<BoardBean>();
+		try {
+			con = pool.getConnection();
+			// 검색이 아닌경우
+			sql = "select * from tbl_Board order by regdate desc ";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				BoardBean bean = new BoardBean();
+				bean.setNum(rs.getInt("num"));
+				bean.setId(rs.getString("m_id"));
+				bean.setSubject(rs.getString("subject"));
+				bean.setPos(rs.getInt("pos"));
+				bean.setRef(rs.getInt("ref"));
+				bean.setDepth(rs.getInt("depth"));
+				bean.setRegdate(rs.getString("regdate"));
+				bean.setCount(rs.getInt("count"));
+				bean.setFilename(rs.getString("filename"));
+				bean.setName(rs.getString("name"));
+				bean.setLike(rs.getInt("like"));
+				bean.setBad(rs.getInt("bad"));
+				bean.setMyimgname(rs.getString("myimgname"));
+				vlist.addElement(bean);
+			}
+		} catch (Exception e) {
+			System.out.println("리스트 에러" + e);
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+	}
+
 	public Vector<BoardBean> getBoardList2(String keyField, String keyWord, int start, int cnt) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -589,61 +626,62 @@ public class BoardMgr {
 		return bean;
 	}
 
-	//3위 뿌려주기 @KJH count 수대로
-		public BoardBean getshowmain4() {
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String sql = null;
-			BoardBean bean = new BoardBean();
-			try {
-				con = pool.getConnection();
-				sql = "SELECT distinct name,num, subject, myimgname, content FROM tbl_board ORDER BY  tbl_board.`COUNT` DESC LIMIT 3,1";
-				pstmt = con.prepareStatement(sql);
+	// 3위 뿌려주기 @KJH count 수대로
+	public BoardBean getshowmain4() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		BoardBean bean = new BoardBean();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT distinct name,num, subject, myimgname, content FROM tbl_board ORDER BY  tbl_board.`COUNT` DESC LIMIT 3,1";
+			pstmt = con.prepareStatement(sql);
 //					pstmt.setInt(1, count);
-				rs = pstmt.executeQuery();
-				if (rs.next()) {
-					bean.setSubject(rs.getString("subject"));
-					bean.setName(rs.getString("name"));
-					bean.setContent(rs.getString("content"));
-					bean.setNum(rs.getInt("num"));
-					bean.setMyimgname(rs.getString("myimgname"));
-				}
-			} catch (Exception e) {
-				System.out.println("갯갯 보더에러" + e);
-			} finally {
-				pool.freeConnection(con, pstmt, rs);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				bean.setSubject(rs.getString("subject"));
+				bean.setName(rs.getString("name"));
+				bean.setContent(rs.getString("content"));
+				bean.setNum(rs.getInt("num"));
+				bean.setMyimgname(rs.getString("myimgname"));
 			}
-			return bean;
+		} catch (Exception e) {
+			System.out.println("갯갯 보더에러" + e);
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
 		}
+		return bean;
+	}
 
-		//3위 뿌려주기 @KJH count 수대로
-			public BoardBean getshowmain5() {
-				Connection con = null;
-				PreparedStatement pstmt = null;
-				ResultSet rs = null;
-				String sql = null;
-				BoardBean bean = new BoardBean();
-				try {
-					con = pool.getConnection();
-					sql = "SELECT distinct name,num, subject, myimgname, content FROM tbl_board ORDER BY  tbl_board.`COUNT` DESC LIMIT 4,1";
-					pstmt = con.prepareStatement(sql);
+	// 3위 뿌려주기 @KJH count 수대로
+	public BoardBean getshowmain5() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		BoardBean bean = new BoardBean();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT distinct name,num, subject, myimgname, content FROM tbl_board ORDER BY  tbl_board.`COUNT` DESC LIMIT 4,1";
+			pstmt = con.prepareStatement(sql);
 //						pstmt.setInt(1, count);
-					rs = pstmt.executeQuery();
-					if (rs.next()) {
-						bean.setSubject(rs.getString("subject"));
-						bean.setName(rs.getString("name"));
-						bean.setContent(rs.getString("content"));
-						bean.setNum(rs.getInt("num"));
-						bean.setMyimgname(rs.getString("myimgname"));
-					}
-				} catch (Exception e) {
-					System.out.println("갯갯 보더에러" + e);
-				} finally {
-					pool.freeConnection(con, pstmt, rs);
-				}
-				return bean;
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				bean.setSubject(rs.getString("subject"));
+				bean.setName(rs.getString("name"));
+				bean.setContent(rs.getString("content"));
+				bean.setNum(rs.getInt("num"));
+				bean.setMyimgname(rs.getString("myimgname"));
 			}
+		} catch (Exception e) {
+			System.out.println("갯갯 보더에러" + e);
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return bean;
+	}
+
 	// 좋아요 1위 뿌려주기 @KJH
 	public BoardBean getshowmainlike1() {
 		Connection con = null;
@@ -793,43 +831,45 @@ public class BoardMgr {
 		}
 		return vector;
 	}
+
 	// 좋아요 2위 뿌려주기 @KJH
-		public Vector<BoardBean> getTopView5() {
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String sql = null;
-			Vector<BoardBean> vector = new Vector<BoardBean>();
-			try {
-				con = pool.getConnection();
-				sql = "SELECT * FROM tbl_board ORDER BY  tbl_board.`count` DESC LIMIT 0,5;";
-				pstmt = con.prepareStatement(sql);
+	public Vector<BoardBean> getTopView5() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<BoardBean> vector = new Vector<BoardBean>();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT * FROM tbl_board ORDER BY  tbl_board.`count` DESC LIMIT 0,5;";
+			pstmt = con.prepareStatement(sql);
 //						pstmt.setInt(1, count);
-				rs = pstmt.executeQuery();
-				while (rs.next()) {
-					BoardBean bean = new BoardBean();
-					bean.setNum(rs.getInt("num"));
-					bean.setId(rs.getString("m_id"));
-					bean.setSubject(rs.getString("subject"));
-					bean.setPos(rs.getInt("pos"));
-					bean.setRef(rs.getInt("ref"));
-					bean.setDepth(rs.getInt("depth"));
-					bean.setRegdate(rs.getString("regdate"));
-					bean.setCount(rs.getInt("count"));
-					bean.setFilename(rs.getString("filename"));
-					bean.setName(rs.getString("name"));
-					bean.setLike(rs.getInt("like"));
-					bean.setBad(rs.getInt("bad"));
-					bean.setMyimgname(rs.getString("myimgname"));
-					vector.add(bean);
-				}
-			} catch (Exception e) {
-				System.out.println("갯갯 보더에러" + e);
-			} finally {
-				pool.freeConnection(con, pstmt, rs);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				BoardBean bean = new BoardBean();
+				bean.setNum(rs.getInt("num"));
+				bean.setId(rs.getString("m_id"));
+				bean.setSubject(rs.getString("subject"));
+				bean.setPos(rs.getInt("pos"));
+				bean.setRef(rs.getInt("ref"));
+				bean.setDepth(rs.getInt("depth"));
+				bean.setRegdate(rs.getString("regdate"));
+				bean.setCount(rs.getInt("count"));
+				bean.setFilename(rs.getString("filename"));
+				bean.setName(rs.getString("name"));
+				bean.setLike(rs.getInt("like"));
+				bean.setBad(rs.getInt("bad"));
+				bean.setMyimgname(rs.getString("myimgname"));
+				vector.add(bean);
 			}
-			return vector;
+		} catch (Exception e) {
+			System.out.println("갯갯 보더에러" + e);
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
 		}
+		return vector;
+	}
+
 	public static void main(String[] args) {
 //		BoardMgr mgr = new BoardMgr();
 //		mgr.post1000();

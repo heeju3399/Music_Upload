@@ -62,7 +62,7 @@ session.setAttribute("bean", bean);
 		<div class="inner">
 			<a href="../main/main.jsp" class="logo">C O M M A</a>
 			<nav id="nav">
-				<a class="kkk" href="../top100/top100.jsp">가요무대(top100)</a> <a
+				<a class="kkk" href="../top100/top100.jsp">차트</a> <a
 					href="list.jsp">최신 업로드 </a>
 
 				<%
