@@ -453,7 +453,7 @@ BoardMgr boardMgr = new BoardMgr();
 	</div>
 	<audio controls="controls" id="audio"
 		style="position: absolute; bottom: 0px;">
-		<source src="./mp3/test.mp3" type="audio/mp3" />
+		<source src="../board/fileupload/<%=viewTop5.get(0).getFilename()%> type="audio/mp3" />
 	</audio>
 	<button id='toggle'>
 		<span class='fa fa-wifi' style='font-size: 1rem; margin-top: 0.65rem;'></span>

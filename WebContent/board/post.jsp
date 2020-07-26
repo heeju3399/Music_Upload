@@ -141,7 +141,7 @@ body {
  			</tr> 
  		</table> 
  		<br /> 
- 		<form name="postFrm" method="post" action="boardPost" 
+ 		<%-- <form name="postFrm" method="post" action="boardPost" 
  			enctype="multipart/form-data"> 
  			<table width="600" cellpadding="3" align="center"> 
  				<tr> 
@@ -185,7 +185,7 @@ body {
  					</td>  
  				</tr>  
  			</table> 
- 		</form> 
+ 		</form>  --%>
  	</div> 
 	<div id="view"></div>
 	<script src="../main/assets/js/jquery.min.js"></script>
