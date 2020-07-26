@@ -28,10 +28,10 @@ String session22 = session.getId();
 	href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap"
 	rel="stylesheet">
 <style>
-
-.col:hover{
-	filter:blur(1px);
+.col:hover {
+	filter: blur(1px);
 }
+
 a {
 	font-size: 1.2rem;
 	color: black;
@@ -346,7 +346,8 @@ BoardMgr boardMgr = new BoardMgr();
 								</button>
 							</div>
 							<div>
-								<span> <a 	href="../board/artist.jsp?num=<%=likeBean.getNum()%>&name=<%=likeBean.getName()%>'">
+								<span> <a
+									href="../board/artist.jsp?num=<%=likeBean.getNum()%>&name=<%=likeBean.getName()%>'">
 										<%=likeBean.getName()%></a>
 								</span> - <span><%=likeBean.getSubject()%></span>
 
@@ -396,7 +397,7 @@ BoardMgr boardMgr = new BoardMgr();
 							</div>
 							<div>
 								<span> <a
-									href="onclick=location.href='../board/artist.jsp?num=<%=topBean.getNum()%>&name=<%=topBean.getName()%>'">
+									href="../board/artist.jsp?num=<%=topBean.getNum()%>&name=<%=topBean.getName()%>">
 										<%=topBean.getName()%></a>
 								</span> - <span><%=topBean.getSubject()%></span>
 
@@ -424,7 +425,7 @@ BoardMgr boardMgr = new BoardMgr();
 		<script>
 			let wave = new CircularAudioWave(document
 					.getElementById("chart-container"));
-			wave.loadAudio("mp3/test.mp3");
+			wave.loadAudio("../board/fileupload/건배.mp3");
 		</script>
 
 
@@ -453,7 +454,7 @@ BoardMgr boardMgr = new BoardMgr();
 	</div>
 	<audio controls="controls" id="audio"
 		style="position: absolute; bottom: 0px;">
-		<source src="../board/fileupload/<%=viewTop5.get(0).getFilename()%> type="audio/mp3" />
+		<source src="../board/fileupload/건배.mp3" type="audio/mp3" />
 	</audio>
 	<button id='toggle'>
 		<span class='fa fa-wifi' style='font-size: 1rem; margin-top: 0.65rem;'></span>

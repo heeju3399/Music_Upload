@@ -70,9 +70,9 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock);
 }
 button{
 	background-color:black;
-	margin-left:1px;
+	overflow:hidden;
 	font-size:0.5rem;
-	width:20%;
+	width:10%;
 	margin-right:1px;
 }
 #header {
@@ -148,11 +148,6 @@ h6 {
 	transform:scale(0.8);
 }
 </style>
-<script>
-	var playList = [];
-	var currentSong = null;
-	var sw = false;
-</script>
 <script type="text/javascript">
 	function check() {
 		if (document.searchFrm.keyWord.value == "") {
@@ -255,15 +250,7 @@ body { // /*transform: scale(0.8);*/
 	margin-left: 2rem;
 }
 
-#playList{
-	width:24%;
-	height:100px;
-	display:inline-block;
-	font-size:1rem;
-	padding-left:1rem;
-	margin-top:-1rem;
-	/* background-color:black; */
-}
+
 #play-audio-info {
 	display: none;
 	color: white;
@@ -318,8 +305,6 @@ body { // /*transform: scale(0.8);*/
 	<br>
 	<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 	<div id="play-bar">
-		<div id="playList">
-		</div>
 		<audio src="" id="audio"></audio>
 	</div>
 	<br>
@@ -368,52 +353,21 @@ body { // /*transform: scale(0.8);*/
 						<%=vlist.get(i).getName()%>
 					</div>
 					<div>
-						<%-- <button
-							onclick="playSong(
-							<%=vlist.get(i).getBad()%>,
-							'<%=vlist.get(i).getContent()%>',
-							<%=vlist.get(i).getCount()%>,
-							'<%=vlist.get(i).getFilename()%>',
-							'<%=vlist.get(i).getId()%>',
-							'<%=vlist.get(i).getIp()%>',
-							<%=vlist.get(i).getLike()%>,
-							'<%=vlist.get(i).getMyimgname()%>',
-							'<%=vlist.get(i).getName()%>',
-							<%=vlist.get(i).getNum()%>,
-							'<%=vlist.get(i).getRegdate()%>',
-							'<%=vlist.get(i).getSubject()%>'
-						)">
-							<span class='fa fa-play'></span>
-						</button> --%>
 						<button
-							onclick="addSong(
-							<%=vlist.get(i).getBad()%>,
-							'<%=vlist.get(i).getContent()%>',
-							<%=vlist.get(i).getCount()%>,
-							'<%=vlist.get(i).getFilename()%>',
-							'<%=vlist.get(i).getId()%>',
-							'<%=vlist.get(i).getIp()%>',
-							<%=vlist.get(i).getLike()%>,
-							'<%=vlist.get(i).getMyimgname()%>',
-							'<%=vlist.get(i).getName()%>',
-							<%=vlist.get(i).getNum()%>,
-							'<%=vlist.get(i).getRegdate()%>',
-							'<%=vlist.get(i).getSubject()%>'
-							)">
-							<span class="fa fa-plus">
-							</span>
+							onclick="playSong('<%=vlist.get(i).getFilename()%>')">
+							<span class='fa fa-play'></span>
 						</button>
 						<button onclick="location.href='artist.jsp?name=<%=name%>&num=<%=num%>'">
 							<span class='fa fa-user'></span>
 						</button>
 						
 						<button onclick="like(<%=num%>)">
-							<span class='fa fa-thumbs-up'> <%=vlist.get(i).getLike() %></span>
-						</button>
-						
+							<span class='fa fa-thumbs-up' ></span>
+						</button> 
 						<button onclick="bad(<%=num%>)">
-							<span class='fa fa-thumbs-down'> <%=vlist.get(i).getBad() %></span>
+							<span  style='color:white;' class='fa fa-thumbs-down'></span>
 						</button>
+						<span style='color:red;'><%=vlist.get(i).getLike() %></span> / <span><%=vlist.get(i).getBad() %></span>
 					</div>
 				</figcaption>
 			</figure>
@@ -465,74 +419,9 @@ body { // /*transform: scale(0.8);*/
 	<script src="../main/assets/js/util.js"></script>
 	<script src="../main/assets/js/main.js"></script>
 	<script>
-	function renderPlaylistHTML(){
-		var html ="";
-		var el = document.getElementById('playList');
-		for (var i=0; i<playList.length;i++){
-			html += "<button value='"+playList[i].filename+"'><span class='fa fa-play'>"+playList[i].subject+"</span></button>";
-		//	html += "<td>" +playList[i].bad+"</td>";
-		//	html += "<td>" +playList[i].content+"</td>";
-		//	html += "<td>" +playList[i].count+"</td>";
-		//	html += "<td>" +playList[i].id+"</td>";
-		//	html += "<td>" +playList[i].ip+"</td>";
-		//	html += "<td>" +playList[i].	+"</td>";
-		//	html += "<td>" +playList[i].img+"</td>";
-		//html += "<td>" +playList[i].num+"</td>";
-		}
-		console.log(html);
-		if (playList.length <=0){
-			html = "<p class='center' style='color:black;'>음악을 재생하거나 추가해주세요.</p>";
-			
-		}
-		var comma = document.getElementById('comma');
-		var t = document.getElementById('toggleBtn');
-		//var playToggleEl = document.getElementBYId('playToggle');
-		//t.className = 'fa fa-arrow-list';
-		el.value = 'false';
-		comma.style.display = 'block';
-		el.innerHTML = html;
-		
-	}
-	function addSong(bad,content,count,filename,id,ip,like,img,name,num,date,subject){
-		if (max == playList.length){
-			alert('목록 5개가 가득 찾습니다.');
-			return;
-		} 
-		var song = {
-				"bad" : bad,
-				"content" : content,
-				"count" : count,
-				"filename" : filename,
-				"id" : id,
-				"ip" : ip,
-				"like" : like,
-				"img" : img,
-				"name" : name,
-				"num" : num,
-				"date" : date,
-				"subject":subject
-		};
-		playList.push(song);
-		renderPlaylistHTML();
-	}
-	function playSong(bad,content,count,filename,id,ip,like,img,name,num,date,subject){
-		
-		sw = true;
-		var song = {
-				"bad" : bad,
-				"content" : content,
-				"count" : count,
-				"filename" : filename,
-				"id" : id,
-				"ip" : ip,
-				"like" : like,
-				"img" : img,
-				"name" : name,
-				"num" : num,
-				"date" : date,
-				"subject":subject
-		};
-		
+	
+	
+	function playSong(filename){
 		var audio = document.getElementById('audio');
 		var path = 'fileupload/'+filename;
 		var togglePlayIcon = document.getElementById('toggle-play-icon');
@@ -541,68 +430,11 @@ body { // /*transform: scale(0.8);*/
 		currentSong = song;
 		playList.push(song);
 		audio.play();
-		renderPlaylistHTML();
 	}
-	function stopPause(){
-		sw = false;
-		var audio = document.getElementById('audio');
-		var togglePlayIcon = document.getElementById('toggle-play-icon');
-		togglePlayIcon.className = 'fa fa-play';
-		audio.pause();	
-		renderPlaylistHTML();
-	}
-	function next(){
-		renderPlaylistHTML();
-	}
-	function prev(){
-
-		renderPlaylistHTML();
-	}
-	function playToggle() {
-		var audio = document.getElementById('audio');
-		if (currentSong != null){
-			if (sw == false){
-				console.log(currentSong);
-				playSong(currentSong.bad,currentSong.content,currentSong.count,
-						currentSong.filename,currentSong.id,currentSong.ip,
-						currentSong.like,currentSong.img,currentSong.name,
-						currentSong.num,currentSong.date,currentSong.subject)
-				sw = true;
-			}else{
-				stopPause();
-				sw = false;
-			}
-		}else{
-			if (playList.length <=0 ){
-				alert('플레이 리스트가 비었습니다.');
-			}else if (currentSong == null){
-				alert('선택된 음악이 없습니다.');
-			}
-		}
-		renderPlaylistHTML();
-	}
-	function toggle() {
-		var el = document.getElementById('playToggle');
-		var comma = document.getElementById('comma');
-		console.log(comma);
-		console.log(el.value);
-		var t = document.getElementById('toggleBtn');
-		var playListElement = document.getElementById('playList');
-		if (el.value == 'false') {
-			comma.style.display = 'none';
-			//t.className = 'fa fa-arrow-down';
-			comma.style.display = 'none';
-			playListElement.style.display='block';
-			el.value = 'true';
-			
-		} else {
-			//t.className = 'fa fa-arrow-up';
-			el.value = 'false';
-			comma.style.display = 'block';
-			playListElement.style.display='none';
-		}
-		renderPlaylistHTML();
-	}
+	
+	
+	
+	
 	function goPage(page){
 		location.href=page;
 	}
