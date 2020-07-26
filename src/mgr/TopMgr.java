@@ -42,7 +42,7 @@ public class TopMgr {
 		Vector<TopBean> vlist = new Vector<>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from tbl_top100 order by cnt desc";
+			sql = "SELECT distinct * FROM tbl_top100 GROUP BY entry HAVING MAX(cnt) order by cnt DESC, regdate DESC";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
