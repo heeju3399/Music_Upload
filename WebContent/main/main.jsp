@@ -29,7 +29,7 @@ String session22 = session.getId();
 	rel="stylesheet">
 <style>
 .col:hover {
-	filter: blur(1px);
+	/* filter: blur(1px); */
 }
 
 a {
@@ -55,7 +55,7 @@ a:befor {
 }
 
 a:hover {
-	opacity: 0.85;
+	/* filter:invert(100%); */
 }
 
 html, body {
@@ -276,8 +276,8 @@ section {
 </head>
 <%
 	TopMgr topMgr = new TopMgr();
-Vector<TopBean> tBeans = topMgr.getTopBean();
-BoardMgr boardMgr = new BoardMgr();
+	Vector<TopBean> tBeans = topMgr.getTopBean();
+	BoardMgr boardMgr = new BoardMgr();
 %>
 
 <body>

@@ -117,7 +117,14 @@ body {
 				</div>
 				<input type="hidden" name="m_latitude" value=""> <input
 					type="hidden" name="m_longitude" value="">
-				
+				<%
+					//월래는 이거 씀! pageContext.getRequest().getRemoteAddr()
+					String ipaddress = request.getHeader("HTTP_X_FORWARDED_FOR");
+
+					if (ipaddress  == null)
+						ipaddress = request.getRemoteAddr();
+					%>
+					<input type="hidden" name="ip" value="<%=ipaddress%>"/>		
 				</div>
 			</form>
 			<div class="copyright">

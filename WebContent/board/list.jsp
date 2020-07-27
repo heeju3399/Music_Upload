@@ -157,7 +157,7 @@ body { // /*transform: scale(0.8);*/
 	border: 1px solid rgba(0, 0, 0, 0.2);
 	margin-bottom: 10px;
 	padding: 10px;
-	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 	width: 300px;
 }
 

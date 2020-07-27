@@ -25,7 +25,17 @@ public class MemberBean {
 	private String m_tag;
 	private String m_creted_at;
 	private String m_updated_at;
+	private String ip;
 	
+	
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
 	public double getM_latitude() {
 		return m_latitude;
 	}

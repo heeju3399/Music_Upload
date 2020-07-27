@@ -19,7 +19,7 @@ public class BoardMgr {
 
 	private DBMgr pool;
 	// 저장되는 경로
-	public static final String SAVEFOLDER = "C:\\comma111111111\\commaaaa\\WebContent\\board\\fileupload";
+	public static final String SAVEFOLDER = "C:\\comma-workspace\\comma\\WebContent\\board\\fileupload";
 	public static final String ENCTYPE = "UTF-8";
 	public static int MAXSIZE = 50000 * 1024 * 1024; //
 

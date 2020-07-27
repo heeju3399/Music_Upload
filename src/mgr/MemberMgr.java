@@ -225,15 +225,18 @@ public class MemberMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = " update tbl_member set m_pwd=?, m_email=?, m_birth=? where m_id=? ";
+			sql = " update tbl_member set m_pwd=? where m_id=? ";
 			System.out.println("1");
 			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, pass);
+			pstmt.setString(2, id);
+			
 			if (pstmt.executeUpdate() == 1)
 				flag = true;
 
 		} catch (Exception e) {
-			System.out.println("������Ʈ�������" + e);
-		} finally {
+			System.out.println("비밀번호수정에러" + e);
+		} finally { 
 			pool.freeConnection(con, pstmt);
 		}
 		return flag;

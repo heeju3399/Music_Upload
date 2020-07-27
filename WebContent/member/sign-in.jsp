@@ -105,6 +105,7 @@ body {
 			<!-- 				////////////////////////////////////// -->
 				<input type="hidden" name="m_latitude" value=""> <input
 					type="hidden" name="m_longitude" value="">
+								
 			</form>
 			<div class="copyright">
 				&copy; Untitled Design: <a href="">COMMA</a>. SNAGHEE <a href="">DISIGN</a>

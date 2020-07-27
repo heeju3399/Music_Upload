@@ -241,15 +241,15 @@ th {
 
 	<iframe id="player" src="" allow="autoplay" allowfullscreen></iframe>
 	<div id="controller">
-		<button class='controls' onclick="prev()">
+		<!-- <button class='controls' onclick="prev()">
 			<span class='fa fa-backward'></span>
 		</button>
 		<button class='controls' onclick="play()">
 			<span class='fa fa-play'></span>
 		</button>
 		<button class='controls' onclick="next()">
-			<span class='fa fa-forward'></span>
-		</button>
+			<span class='fa fa-forward'></span> -->
+		<!-- </button> -->
 		<button onclick='randomSong()'><span class='fa fa-random'></span></button>
 	</div>
 	<div id="copyright" class="copyright"

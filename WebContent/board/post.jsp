@@ -69,7 +69,7 @@ body {
  		<br>
 			<section>
 			<div class="inner">
-				<h3><a href="post.jsp">업로드</a></h3>
+				<h3><a href="ㅁ.jsp">업로드</a></h3>
 				<form method="post" action="boardPost" 				
 				enctype="multipart/form-data" >
 					<div class="row uniform 50%">
